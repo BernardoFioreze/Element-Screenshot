@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Element Screenshot",
-  "version": "1.5",
-  "description": "v1.5 — Corrigido: download de imagens não era disparado pois o próprio listener interceptava o clique.",
+  "version": "1.6",
+  "description": "v1.6 — Extensão para o Google Chrome que permite selecionar qualquer elemento de uma página web — imagens, divs, seções inteiras — e salvá-lo como arquivo PNG, sem precisar tirar print da tela.",
   "permissions": [
     "activeTab",
     "scripting",

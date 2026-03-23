@@ -14,29 +14,48 @@
     style.id = HIGHLIGHT_STYLE_ID;
     style.textContent = `
       .${HIGHLIGHT_CLASS} {
-        outline: 2px solid #cba6f7 !important;
-        outline-offset: 2px !important;
+        outline: none !important;
+        box-shadow:
+          0 0 0 2px #cba6f7,
+          0 0 0 4px rgba(203, 166, 247, 0.25),
+          0 0 16px 3px rgba(203, 166, 247, 0.35) !important;
+        border-radius: 3px !important;
         cursor: crosshair !important;
+        transition:
+          box-shadow 0.15s ease,
+          border-radius 0.15s ease !important;
       }
+
       #ess-label {
         position: fixed;
         background: #cba6f7;
         color: #1e1e2e;
         font-size: 11px;
-        font-weight: 600;
-        padding: 3px 8px;
+        font-weight: 700;
+        padding: 3px 9px 3px 7px;
         border-radius: 4px;
         pointer-events: none;
         z-index: 2147483647;
         white-space: nowrap;
         display: none;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-family: ui-monospace, "Cascadia Code", "Fira Code", monospace;
+        letter-spacing: 0.2px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+        opacity: 0;
+        transform: translateY(4px);
+        transition: opacity 0.12s ease, transform 0.12s ease;
       }
+
+      #ess-label.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
       #ess-toast {
         position: fixed;
         bottom: 24px;
         left: 50%;
-        transform: translateX(-50%) translateY(20px);
+        transform: translateX(-50%) translateY(16px);
         background: #a6e3a1;
         color: #1e1e2e;
         font-size: 13px;
@@ -45,17 +64,22 @@
         border-radius: 8px;
         z-index: 2147483647;
         opacity: 0;
-        transition: opacity 0.25s, transform 0.25s;
+        transition: opacity 0.2s ease, transform 0.2s ease;
         pointer-events: none;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+        letter-spacing: 0.1px;
       }
+
       #ess-toast.show {
         opacity: 1;
         transform: translateX(-50%) translateY(0);
       }
+
       #ess-toast.error {
         background: #f38ba8;
       }
+
       body.ess-active * {
         cursor: crosshair !important;
       }
@@ -84,15 +108,22 @@
       : "";
     label.textContent = `${tag}${id}${cls}`;
     label.style.display = "block";
-    // Posição: acima do elemento, seguindo o viewport
-    const top = rect.top - 22;
-    label.style.top = `${top < 0 ? rect.bottom + 4 : top}px`;
-    label.style.left = `${Math.max(0, rect.left)}px`;
+
+    // Posição: acima do elemento; se não couber, abaixo
+    const top = rect.top - 26;
+    label.style.top = `${top < 4 ? rect.bottom + 6 : top}px`;
+    label.style.left = `${Math.max(4, Math.min(rect.left, window.innerWidth - 200))}px`;
+
+    // Pequeno delay para o display:block ser processado antes da transição
+    requestAnimationFrame(() => label.classList.add("visible"));
   }
 
   function hideLabel() {
     const label = document.getElementById("ess-label");
-    if (label) label.style.display = "none";
+    if (!label) return;
+    label.classList.remove("visible");
+    // Esconde após a transição terminar
+    setTimeout(() => { if (!label.classList.contains("visible")) label.style.display = "none"; }, 130);
   }
 
   let toastTimer = null;
