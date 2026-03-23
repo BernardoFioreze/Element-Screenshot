@@ -22,7 +22,7 @@ A extensão não está publicada na Chrome Web Store. Para usá-la, basta carreg
 **1. Clone o repositório**
 
 ```bash
-git clone git@github.com:JohnDOe/Element-Screenshot.git
+git clone git@github.com:JohnDoe/Element-Screenshot.git
 ```
 
 **2. Abra a página de extensões do Chrome**
