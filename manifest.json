@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Element Screenshot",
+  "version": "1.5",
+  "description": "v1.5 — Corrigido: download de imagens não era disparado pois o próprio listener interceptava o clique.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "downloads",
+    "storage"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Element Screenshot"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["html2canvas.min.js", "content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
