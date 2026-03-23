@@ -1,4 +1,4 @@
-# Element Screenshot Saver
+# Element Screenshot
 
 Extensão para o Google Chrome que permite selecionar qualquer elemento de uma página web — imagens, divs, seções inteiras — e salvá-lo como arquivo PNG, sem precisar tirar print da tela.
 
