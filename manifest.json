@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Element Screenshot",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "Extensão para o Google Chrome que permite selecionar qualquer elemento de uma página web — imagens, divs, seções inteiras — e salvá-lo como arquivo PNG, sem precisar tirar print da tela.",
   "permissions": [
     "activeTab",
@@ -14,6 +14,9 @@
     "default_popup": "/popup/popup.html",
     "default_title": "Element Screenshot",
     "default_icon": "images/icon.png"
+  },
+  "background": {
+    "service_worker": "scripts/background.js"
   },
   "content_scripts": [
     {

@@ -159,14 +159,7 @@
   }
 
   function triggerDownload(url, filename) {
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = filename;
-    a.style.display = "none";
-    a.setAttribute("data-ess-download", "1"); // marca para não ser interceptado
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(() => a.remove(), 1000);
+    chrome.runtime.sendMessage({ type: "DOWNLOAD", url, filename });
   }
 
   // ─── Estratégia 1a: fetch CORS ────────────────────────────────────────────
@@ -415,7 +408,6 @@
     let node = el;
     while (node && node !== document.body) {
       if (ESS_SKIP_IDS.has(node.id)) return true;
-      if (node.dataset && node.dataset.essDownload) return true;
       node = node.parentElement;
     }
     return false;
